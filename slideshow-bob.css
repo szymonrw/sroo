@@ -1,0 +1,14 @@
+body, body section, body section h1 {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+body section {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
