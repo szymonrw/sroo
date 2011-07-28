@@ -20,7 +20,8 @@
         }
     };
 
-    window.bob = {};
+    var bob = {};
+    window.bob = bob;
     var scroll = function(x) {
         if (typeof x === "undefined") {
             return (document.documentElement.scrollTop +
@@ -31,7 +32,7 @@
             return x;
         }
     };
-    window.bob.scroll = scroll;
+    bob.scroll = scroll;
 
     var change_page = function(page_offset) {
         var page = Math.floor(scroll() / window.innerHeight);
@@ -39,8 +40,7 @@
         scroll(to_scroll);
         return page + page_offset;
     }
-
-    window.bob.change_page = change_page;
+    bob.change_page = change_page;
 
     var handlers = {
         "Up": function() {
@@ -49,6 +49,11 @@
         },
         "Down": function() {
             console.log("down!");
+            change_page(1);
+        },
+        "Spacebar": function () {
+            // here we will also change subslides
+            console.log("space!");
             change_page(1);
         },
         "Left": function() {
@@ -60,10 +65,12 @@
     };
     pin(handlers, "Up", "PageUp", 38, 33);
     pin(handlers, "Down", "PageDown", 40, 34);
+    pin(handlers, "Spacebar", 32);
     pin(handlers, "Left", 37);
     pin(handlers, "Right", 39);
 
     window.onkeydown = function (e) {
+        console.log("key: " + e.key + " keyCode: " + e.keyCode);
         var handler = handlers[e.key] || handlers[e.keyCode];
         if(handler){
             handler();
