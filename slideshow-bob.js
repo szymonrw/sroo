@@ -1,3 +1,9 @@
+/*
+  Slideshow Bob -- simple web slideshow library
+  License: MIT
+  Copywrong 2011 Szymon Witamborski
+  http://longstandingbug.com/info.html
+*/
 (function() {
     var dump = function(e) {
         var s = "";
@@ -14,12 +20,36 @@
         }
     };
 
+    window.bob = {};
+    var scroll = function(x) {
+        if (typeof x === "undefined") {
+            return (document.documentElement.scrollTop +
+                    document.body.scrollTop);
+        } else {
+            document.documentElement.scrollTop = x;
+            document.body.scrollTop = x;
+            return x;
+        }
+    };
+    window.bob.scroll = scroll;
+
+    var change_page = function(page_offset) {
+        var page = Math.floor(scroll() / window.innerHeight);
+        var to_scroll = (page + page_offset) * window.innerHeight;
+        scroll(to_scroll);
+        return page + page_offset;
+    }
+
+    window.bob.change_page = change_page;
+
     var handlers = {
         "Up": function() {
             console.log("up!");
+            change_page(-1);
         },
         "Down": function() {
             console.log("down!");
+            change_page(1);
         },
         "Left": function() {
             console.log("left!");
@@ -34,7 +64,6 @@
     pin(handlers, "Right", 39);
 
     window.onkeydown = function (e) {
-        console.log(e);
         var handler = handlers[e.key] || handlers[e.keyCode];
         if(handler){
             handler();
