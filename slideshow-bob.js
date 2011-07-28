@@ -20,6 +20,12 @@
         }
     };
 
+    var log = function(x) {
+        if(console && console.log) {
+            console.log(x);
+        }
+    }
+
     var bob = {};
     window.bob = bob;
     var scroll = function(x) {
@@ -44,23 +50,23 @@
 
     var handlers = {
         "Up": function() {
-            console.log("up!");
+            log("up!");
             change_page(-1);
         },
         "Down": function() {
-            console.log("down!");
+            log("down!");
             change_page(1);
         },
         "Spacebar": function () {
             // here we will also change subslides
-            console.log("space!");
+            log("space!");
             change_page(1);
         },
         "Left": function() {
-            console.log("left!");
+            log("left!");
         },
         "Right": function() {
-            console.log("right");
+            log("right");
         }
     };
     pin(handlers, "Up", "PageUp", 38, 33);
@@ -70,7 +76,7 @@
     pin(handlers, "Right", 39);
 
     window.onkeydown = function (e) {
-        console.log("key: " + e.key + " keyCode: " + e.keyCode);
+        log("key: " + e.key + " keyCode: " + e.keyCode);
         var handler = handlers[e.key] || handlers[e.keyCode];
         if(handler){
             handler();
