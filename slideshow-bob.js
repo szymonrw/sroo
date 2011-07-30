@@ -46,8 +46,8 @@
 
     var scroll = function(x) {
         if (typeof x === "undefined") {
-            return (document.documentElement.scrollTop +
-                    document.body.scrollTop);
+            return Math.max(document.documentElement.scrollTop,
+                            document.body.scrollTop);
         } else {
             document.documentElement.scrollTop = x;
             document.body.scrollTop = x;
