@@ -40,27 +40,28 @@
     };
     bob.scroll = scroll;
 
-    var change_page = function(page_offset) {
-        var page = Math.floor(scroll() / window.innerHeight);
-        var to_scroll = (page + page_offset) * window.innerHeight;
+    var page = function(page_offset) {
+        var current_page = Math.floor(scroll() / window.innerHeight);
+        page_offset = page_offset || 0;
+        var to_scroll = (current_page + page_offset) * window.innerHeight;
         scroll(to_scroll);
-        return page + page_offset;
+        return current_page + page_offset;
     }
-    bob.change_page = change_page;
+    bob.page = page;
 
     var handlers = {
         "Up": function() {
             log("up!");
-            change_page(-1);
+            page(-1);
         },
         "Down": function() {
             log("down!");
-            change_page(1);
+            page(1);
         },
         "Spacebar": function () {
             // here we will also change subslides
             log("space!");
-            change_page(1);
+            page(1);
         },
         "Left": function() {
             log("left!");
