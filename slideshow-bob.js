@@ -18,7 +18,7 @@
         if(console && console.log) {
             console.log(x);
         }
-    }
+    };
     /* end of debugging fns */
 
     var pin = function(a, key /* and arguments */) {
@@ -61,17 +61,52 @@
         if(typeof offset === "number") {
             var desired = current + offset;
             scroll(desired * window.innerHeight);
-            return desired;
+            return page(); // return actual current
         } else {
             return current;
         }
-    }
+    };
     bob.page = page;
 
     var current_slide = function() {
         return slides()[page()];
-    }
+    };
     bob.current_slide = current_slide;
+
+    var subslide = function(offset) {
+        var slide = current_slide();
+        var subs = slide.children;
+        var active = slide.bob_active;
+        if (typeof active !== "number") {
+            for (var i = 0; i < subs.length; ++i) {
+                if (getComputedStyle(subs[i]).display === "table-cell" &&
+                    subs[i].nodeName !== "H1") {
+                    active = i;
+                    break;
+                }
+            }
+            slide.bob_active = active;
+        }
+
+        if (typeof offset === "number") {
+            var desired = active + offset;
+
+            if (subs[0].nodeName === "H1") {
+                desired = Math.max(1, desired);
+            } else {
+                desired = Math.max(0, desired);
+            }
+            desired = Math.min(subs.length - 1, desired);
+
+            subs[active].style.display = "none";
+            subs[desired].style.display = "table-cell";
+            slide.bob_active = desired;
+            return desired;
+        } else {
+            return active;
+        }
+    };
+    bob.subslide = subslide;
 
     var handlers = {
         "Up": function() {
@@ -85,13 +120,22 @@
         "Spacebar": function () {
             // here we will also change subslides
             log("space!");
-            page(1);
+            var sub = subslide();
+            if (subslide(1) === sub) {
+                var current = page();
+                if(current !== page(1)) {
+                    sub = subslide();
+                    subslide(-sub);
+                }
+            }
         },
         "Left": function() {
             log("left!");
+            subslide(-1);
         },
         "Right": function() {
             log("right");
+            subslide(1);
         }
     };
     pin(handlers, "Up", "PageUp", 38, 33);
