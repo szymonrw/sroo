@@ -5,30 +5,6 @@
   http://longstandingbug.com/info.html
 */
 (function() {
-    /* These fns are only for debugging */
-    var dump = function(e) {
-        var s = "";
-        for(a in e) {
-            s += a + ": " + e[a] + "\n"
-        }
-        return s;
-    };
-
-    var log = function(x) {
-        if(console && console.log) {
-            console.log(x);
-        }
-    };
-    /* end of debugging fns */
-
-    var pin = function(a, key /* and arguments */) {
-        var value = a[key];
-        for(var i = 2; i < arguments.length; ++i) {
-            a[arguments[i]] = value;
-        }
-    };
-
-
     var bob = {};
     window.bob = bob;
 
@@ -109,17 +85,12 @@
     bob.subslide = subslide;
 
     var handlers = {
-        "Up": function() {
-            log("up!");
-            page(-1);
-        },
-        "Down": function() {
-            log("down!");
-            page(1);
-        },
+        "Up":    function() { page(-1);     },
+        "Down":  function() { page( 1);     },
+        "Left":  function() { subslide(-1); },
+        "Right": function() { subslide( 1); },
         "Spacebar": function () {
             // here we will also change subslides
-            log("space!");
             var sub = subslide();
             if (subslide(1) === sub) {
                 var current = page();
@@ -128,24 +99,22 @@
                     subslide(-sub);
                 }
             }
-        },
-        "Left": function() {
-            log("left!");
-            subslide(-1);
-        },
-        "Right": function() {
-            log("right");
-            subslide(1);
+        }
+    };
+    var pin = function(a, key /* and arguments */) {
+        var value = a[key];
+        for(var i = 2; i < arguments.length; ++i) {
+            a[arguments[i]] = value;
         }
     };
     pin(handlers, "Up", "PageUp", 38, 33);
     pin(handlers, "Down", "PageDown", 40, 34);
-    pin(handlers, "Spacebar", 32);
     pin(handlers, "Left", 37);
     pin(handlers, "Right", 39);
+    pin(handlers, "Spacebar", 32);
 
     window.onkeydown = function (e) {
-        log("key: " + e.key + " keyCode: " + e.keyCode);
+        //console.log("key: " + e.key + " keyCode: " + e.keyCode);
         var handler = handlers[e.key] || handlers[e.keyCode];
         if(handler){
             handler();
