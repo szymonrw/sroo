@@ -32,6 +32,7 @@ body > section > * {
     padding: 0 5%;
 }
 
+/* this is before body > section > h1 because :first-child matches the h1 */
 body > section > h1 + *, body > section > :first-child {
     display: table-cell;
 }
