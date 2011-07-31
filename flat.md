@@ -33,6 +33,13 @@ etc. (Jekyll too! :) )
   you wish, you may use spaces between the hyphens or
   asterisks. *[markdown docs]*
 
+# Slideshow Bob and Jekyll
+
+There's a simple layout for slideshows
+[here](https://github.com/santamon/slideshow-bob/blob/gh-pages/_layouts/slideshow.html)
+and you can see this slideshow code
+[here](https://raw.github.com/santamon/slideshow-bob/gh-pages/flat.md).
+
 # But:
 
 One caveat!
