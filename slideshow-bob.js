@@ -122,3 +122,34 @@
         }
     };
 })();
+
+/* The following part is optional:
+   Takes document without <section>s and makes them for you.
+   Each part starting with <h1> or <hr> is considered a slide.
+*/
+
+(function() {
+    window.onload = function() {
+        var body = document.body;
+        if(body.firstElementChild.nodeName !== "SECTION") {
+            var slides = [];
+            var slide = document.createElement("section");
+            slides.push(slide);
+            slide.appendChild(body.firstElementChild);
+            while(body.childElementCount > 0) {
+                var node = body.removeChild(body.firstElementChild);
+                var nodeName = node.nodeName;
+                if (nodeName === "HR" || nodeName === "H1") {
+                    slide = document.createElement("section");
+                    slides.push(slide);
+                }
+                if (nodeName !== "HR") {
+                    slide.appendChild(node);
+                }
+            }
+            for(var i = 0; i < slides.length; ++i) {
+                body.appendChild(slides[i]);
+            }
+        }
+    };
+})();
