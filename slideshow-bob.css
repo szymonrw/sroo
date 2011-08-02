@@ -19,6 +19,10 @@ body {
     font-size: 200%;
 }
 
+pre, code {
+    font-family: Consolas, Monaco, 'Lucida Console', 'Andale Mono', 'Droid Sans Mono', 'DejaVu Sans Mono', monospace;
+}
+
 body > section {
     display: table;
     overflow: auto;
