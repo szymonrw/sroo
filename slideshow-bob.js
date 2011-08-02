@@ -111,7 +111,6 @@
     }
 
     window.onkeydown = function (event) {
-        console.log(event.keyCode);
         var handler = handlers[event.keyCode];
         if(handler){
             handler(event);
