@@ -104,13 +104,46 @@
     handlers.multiset(38, 33, 37,     function() { step(-1); }); // Up, PageUp and Left
     handlers.multiset(40, 34, 39, 32, function() { step( 1); }); // Down, PageDown, Right and Space
 
-    window.onkeydown = function (e) {
-        var handler = handlers[e.keyCode];
+    var preventDefault = function (event) {
+        if (event.preventDefault) event.preventDefault();
+        event.returnValue = false;
+        return false;
+    }
+
+    window.onkeydown = function (event) {
+        console.log(event.keyCode);
+        var handler = handlers[event.keyCode];
         if(handler){
-            handler();
-            return false;
+            handler(event);
+            return preventDefault(event);
         }
     };
+
+    /* Preventing from handling scrolling when Ctrl is pressed --
+       -- otherwise zooming in Firefox 5 is broken */
+    var preventWheel = false;
+    handlers[17] = function() { preventWheel = true; };
+    window.onkeyup = function(event) {
+        if (event.keyCode === 17) {
+            preventWheel = false;
+        }
+    }
+
+    var wheel = function(event) {
+        if(!preventWheel) {
+            var delta;
+            if (typeof event.wheelDelta === "number") {
+                delta = event.wheelDelta < 0 ? 1 : -1;
+            } else if (typeof event.detail === "number") {
+                delta = event.detail > 0 ? 1 : -1;
+            }
+            step(delta);
+            return preventDefault(event);
+        }
+    };
+
+    window.onmousewheel = wheel;
+    window.addEventListener('DOMMouseScroll', wheel, false);
 })();
 
 /* The following part is optional:
