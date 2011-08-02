@@ -84,38 +84,32 @@
     };
     bob.subslide = subslide;
 
-    var handlers = {
-        "Up":    function() { page(-1);     },
-        "Down":  function() { page( 1);     },
-        "Left":  function() { subslide(-1); },
-        "Right": function() { subslide( 1); },
-        "Spacebar": function () {
-            // here we will also change subslides
-            var sub = subslide();
-            if (subslide(1) === sub) {
-                var current = page();
-                if(current !== page(1)) {
-                    sub = subslide();
-                    subslide(-sub);
-                }
+    var step = function(direction) {
+        // here we will also change subslides
+        var sub = subslide();
+        if (subslide(direction) === sub) {
+            var current = page();
+            var next = page(direction);
+            if(current !== next && direction > 0) {
+                sub = subslide();
+                subslide(-sub);
             }
         }
     };
-    var pin = function(a, key /* and arguments */) {
-        var value = a[key];
-        for(var i = 2; i < arguments.length; ++i) {
-            a[arguments[i]] = value;
+    bob.step = step;
+
+    Object.prototype.multiset = function () {
+        for(var i = 0, ii = arguments.length - 1, value = arguments[ii]; i < ii; ++i) {
+            this[arguments[i]] = value;
         }
     };
-    pin(handlers, "Up", "PageUp", 38, 33);
-    pin(handlers, "Down", "PageDown", 40, 34);
-    pin(handlers, "Left", 37);
-    pin(handlers, "Right", 39);
-    pin(handlers, "Spacebar", 32);
+
+    var handlers = {};
+    handlers.multiset(38, 33, 37,     function() { step(-1); }); // Up, PageUp and Left
+    handlers.multiset(40, 34, 39, 32, function() { step( 1); }); // Down, PageDown, Right and Space
 
     window.onkeydown = function (e) {
-        //console.log("key: " + e.key + " keyCode: " + e.keyCode);
-        var handler = handlers[e.key] || handlers[e.keyCode];
+        var handler = handlers[e.keyCode];
         if(handler){
             handler();
             return false;
