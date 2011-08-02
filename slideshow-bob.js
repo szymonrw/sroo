@@ -32,10 +32,13 @@
     };
     bob.scroll = scroll;
 
-    var page = function(offset) {
+    var page = function(offset, desired) {
         var current = Math.floor(scroll() / window.innerHeight);
         if(typeof offset === "number") {
             var desired = current + offset;
+            scroll(desired * window.innerHeight);
+            return page(); // return actual current
+        } else if (typeof desired === "number") {
             scroll(desired * window.innerHeight);
             return page(); // return actual current
         } else {
@@ -120,16 +123,16 @@
 
     /* Preventing from handling scrolling when Ctrl is pressed --
        -- otherwise zooming in Firefox 5 is broken */
-    var preventWheel = false;
-    handlers[17] = function() { preventWheel = true; };
+    var zooming = false;
+    handlers[17] = function() { zooming = true; };
     window.onkeyup = function(event) {
         if (event.keyCode === 17) {
-            preventWheel = false;
+            zooming = false;
         }
     }
 
     var wheel = function(event) {
-        if(!preventWheel) {
+        if (!zooming) {
             var delta;
             if (typeof event.wheelDelta === "number") {
                 delta = event.wheelDelta < 0 ? 1 : -1;
