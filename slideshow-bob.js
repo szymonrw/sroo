@@ -90,10 +90,6 @@
         if (subslide(direction) === sub) {
             var current = page();
             var next = page(direction);
-            if(current !== next && direction > 0) {
-                sub = subslide();
-                subslide(-sub);
-            }
         }
     };
     bob.step = step;
