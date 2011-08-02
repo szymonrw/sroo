@@ -57,7 +57,7 @@
         var subs = slide.children;
         var active = slide.bob_active;
         if (typeof active !== "number") {
-            for (var i = 0; i < subs.length; ++i) {
+            for (var i = 0, ii = subs.length; i < ii; ++i) {
                 if (getComputedStyle(subs[i]).display === "table-cell" &&
                     subs[i].nodeName !== "H1") {
                     active = i;
@@ -168,11 +168,11 @@
                     slide = document.createElement("section");
                     slides.push(slide);
                 }
-                if (nodeName !== "HR") {
+                if (nodeName !== "HR" && nodeName !== "SCRIPT") {
                     slide.appendChild(node);
                 }
             }
-            for(var i = 0; i < slides.length; ++i) {
+            for(var i = 0, ii = slides.length; i < ii; ++i) {
                 body.appendChild(slides[i]);
             }
         }
