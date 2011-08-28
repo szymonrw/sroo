@@ -5,12 +5,12 @@
   http://longstandingbug.com/info.html
 */
 (function() {
-    // reorganize body to sections if not structured properly
     var body = document.body;
     var slides = [];
     var slide, node, nodeName, i, ii;
     var active_slide = 0;
 
+    // reorganize body to sections if not structured properly
     if(body.firstElementChild.nodeName !== "SECTION") {
         slide = document.createElement("section");
         slides.push(slide);
@@ -33,6 +33,7 @@
         slides = document.querySelectorAll("body > section");
     }
 
+    // add to each slide's object it's active slide index
     for (i = 0, ii = slides.length; i < ii; ++i) {
         slides[i].active_subslide = 0;
     }
@@ -50,10 +51,11 @@
 
     var move_to_slide = function(slide_num) {
         if(slide_num < 0 || slide_num >= slides.length) {
-            return;
+            return false;
         }
         scroll(slides[slide_num].offsetTop);
         active_slide = slide_num;
+        return true;
     };
 
     var move_to_subslide = function(subslide_num) {
@@ -69,12 +71,9 @@
             return false;
         }
 
-        if(typeof slide.active_subslide !== "number") {
-            slide.active_subslide = 0;
-        }
-
         subs[slide.active_subslide + header_offset].style.display = "none";
         subs[subslide_num + header_offset].style.display = "table-cell";
+
         slide.active_subslide = subslide_num;
         return true;
     };
@@ -82,16 +81,16 @@
     var step = function(direction) {
         var active_subslide = slides[active_slide].active_subslide;
         if(!move_to_subslide(active_subslide + direction)) {
-            move_to_slide(active_slide + direction);
-            if(direction > 0) {
-                move_to_subslide(0);
-            } else {
-                move_to_subslide("last");
+            if(move_to_slide(active_slide + direction)) {
+                if(direction > 0) {
+                    move_to_subslide(0);
+                } else {
+                    move_to_subslide("last");
+                }
             }
         }
         update_location();
     }
-
 
     Object.prototype.multiset = function () {
         for(var i = 0, ii = arguments.length - 1, value = arguments[ii]; i < ii; ++i) {
