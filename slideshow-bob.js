@@ -5,20 +5,37 @@
   http://longstandingbug.com/info.html
 */
 (function() {
-    var bob = {};
-    window.bob = bob;
+    // reorganize body to sections if not structured properly
+    var body = document.body;
+    var slides = [];
+    var slide, node, nodeName, i, ii;
+    var active_slide = 0;
 
-    /* This function loads lazily list of slides. */
-    var slides = (function() {
-        var list;
-        return function() {
-            if(!list){
-                list = document.querySelectorAll("body > section");
+    if(body.firstElementChild.nodeName !== "SECTION") {
+        slide = document.createElement("section");
+        slides.push(slide);
+        slide.appendChild(body.firstElementChild);
+        while(body.childElementCount > 0) {
+            node = body.removeChild(body.firstElementChild);
+            nodeName = node.nodeName;
+            if (nodeName === "HR" || nodeName === "H1") {
+                slide = document.createElement("section");
+                slides.push(slide);
             }
-            return list;
+            if (nodeName !== "HR" && nodeName !== "SCRIPT") {
+                slide.appendChild(node);
+            }
         }
-    })();
-    bob.slides = slides;
+        for(i = 0, ii = slides.length; i < ii; ++i) {
+            body.appendChild(slides[i]);
+        }
+    } else {
+        slides = document.querySelectorAll("body > section");
+    }
+
+    for (i = 0, ii = slides.length; i < ii; ++i) {
+        slides[i].active_subslide = 0;
+    }
 
     var scroll = function(x) {
         if (typeof x === "undefined") {
@@ -30,72 +47,51 @@
             return x;
         }
     };
-    bob.scroll = scroll;
 
-    var page = function(offset, desired) {
-        var current = Math.floor(scroll() / window.innerHeight);
-        if(typeof offset === "number") {
-            var desired = current + offset;
-            scroll(desired * window.innerHeight);
-            return page(); // return actual current
-        } else if (typeof desired === "number") {
-            scroll(desired * window.innerHeight);
-            return page(); // return actual current
-        } else {
-            return current;
+    var move_to_slide = function(slide_num) {
+        if(slide_num < 0 || slide_num >= slides.length) {
+            return;
         }
+        scroll(slides[slide_num].offsetTop);
+        active_slide = slide_num;
     };
-    bob.page = page;
 
-    var current_slide = function() {
-        return slides()[page()];
-    };
-    bob.current_slide = current_slide;
-
-    var subslide = function(offset) {
-        var slide = current_slide();
+    var move_to_subslide = function(subslide_num) {
+        var slide = slides[active_slide];
         var subs = slide.children;
-        var active = slide.bob_active;
-        if (typeof active !== "number") {
-            for (var i = 0, ii = subs.length; i < ii; ++i) {
-                if (getComputedStyle(subs[i]).display === "table-cell" &&
-                    subs[i].nodeName !== "H1") {
-                    active = i;
-                    break;
-                }
-            }
-            slide.bob_active = active;
+        var header_offset = subs[0].nodeName === "H1" ? 1 : 0;
+
+        if(subslide_num === "last") {
+            subslide_num = subs.length - 1 - header_offset;
         }
 
-        if (typeof offset === "number") {
-            var desired = active + offset;
-
-            if (subs[0].nodeName === "H1") {
-                desired = Math.max(1, desired);
-            } else {
-                desired = Math.max(0, desired);
-            }
-            desired = Math.min(subs.length - 1, desired);
-
-            subs[active].style.display = "none";
-            subs[desired].style.display = "table-cell";
-            slide.bob_active = desired;
-            return desired;
-        } else {
-            return active;
+        if(subslide_num < 0 || subslide_num + header_offset >= subs.length) {
+            return false;
         }
+
+        if(typeof slide.active_subslide !== "number") {
+            slide.active_subslide = 0;
+        }
+
+        subs[slide.active_subslide + header_offset].style.display = "none";
+        subs[subslide_num + header_offset].style.display = "table-cell";
+        slide.active_subslide = subslide_num;
+        return true;
     };
-    bob.subslide = subslide;
 
     var step = function(direction) {
-        // here we will also change subslides
-        var sub = subslide();
-        if (subslide(direction) === sub) {
-            var current = page();
-            var next = page(direction);
+        var active_subslide = slides[active_slide].active_subslide;
+        if(!move_to_subslide(active_subslide + direction)) {
+            move_to_slide(active_slide + direction);
+            if(direction > 0) {
+                move_to_subslide(0);
+            } else {
+                move_to_subslide("last");
+            }
         }
-    };
-    bob.step = step;
+        update_location();
+    }
+
 
     Object.prototype.multiset = function () {
         for(var i = 0, ii = arguments.length - 1, value = arguments[ii]; i < ii; ++i) {
@@ -121,8 +117,31 @@
         }
     };
 
-    /* Preventing from handling scrolling when Ctrl is pressed --
-       -- otherwise zooming in Firefox 5 is broken */
+    var update_location = function() {
+        var active_subslide = slides[active_slide].active_subslide;
+        location.assign("#slide-" + (active_slide + 1) +
+                        ((typeof active_subslide === "number" && active_subslide !== 0) ?
+                         ("-" + (active_subslide + 1)) : ""));
+    };
+
+    var slide_nums = /\#slide-?(\d+)-?(\d*)$/i;
+    window.onload = function() {
+        var nums = slide_nums.exec(location.hash);
+        if(nums) {
+            move_to_slide((+nums[1])-1);
+            move_to_subslide((+nums[2])-1);
+        } else {
+            update_location();
+        }
+    };
+
+    // Reposition window after zooming
+    window.onresize = function() {
+        move_to_slide(active_slide);
+    };
+
+    // Preventing from handling scrolling when Ctrl is pressed --
+    // -- otherwise zooming in Firefox 5 is broken
     var zooming = false;
     handlers[17] = function() { zooming = true; };
     window.onkeyup = function(event) {
@@ -146,35 +165,11 @@
 
     window.onmousewheel = wheel;
     window.addEventListener('DOMMouseScroll', wheel, false);
-})();
 
-/* The following part is optional:
-   Takes document without <section>s and makes them for you.
-   Each part starting with <h1> or <hr> is considered a slide.
-*/
-
-(function() {
-    window.onload = function() {
-        var body = document.body;
-        if(body.firstElementChild.nodeName !== "SECTION") {
-            var slides = [];
-            var slide = document.createElement("section");
-            slides.push(slide);
-            slide.appendChild(body.firstElementChild);
-            while(body.childElementCount > 0) {
-                var node = body.removeChild(body.firstElementChild);
-                var nodeName = node.nodeName;
-                if (nodeName === "HR" || nodeName === "H1") {
-                    slide = document.createElement("section");
-                    slides.push(slide);
-                }
-                if (nodeName !== "HR" && nodeName !== "SCRIPT") {
-                    slide.appendChild(node);
-                }
-            }
-            for(var i = 0, ii = slides.length; i < ii; ++i) {
-                body.appendChild(slides[i]);
-            }
-        }
+    // export public interface
+    window.bob = {
+        scroll: scroll,
+        move_to_slide: move_to_slide,
+        move_to_subslide: move_to_subslide
     };
-})();
+}());
