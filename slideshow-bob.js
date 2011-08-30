@@ -38,7 +38,19 @@
         slides[i].active_subslide = 0;
     }
 
-    var scroll = function(x) {
+    if (!window.requestAnimationFrame) {
+	window.requestAnimationFrame = (function() {
+	    return window.webkitRequestAnimationFrame ||
+		window.mozRequestAnimationFrame ||
+		window.oRequestAnimationFrame ||
+		window.msRequestAnimationFrame ||
+		function(callback, element) {
+		    window.setTimeout( callback, 1000 / 60 );
+		};
+	})();
+    }
+
+    var vertical_position = function(x) {
         if (typeof x === "undefined") {
             return Math.max(document.documentElement.scrollTop,
                             document.body.scrollTop);
@@ -49,11 +61,38 @@
         }
     };
 
-    var move_to_slide = function(slide_num) {
+    var make_scroller = function(target, speed) {
+        speed = speed || 10;
+        var begin = vertical_position();
+        var pos;
+        var that = function() {
+            that.progress = Math.min(that.progress + speed, 100);
+            pos = (begin * (100 - that.progress) + (that.target * that.progress)) / 100;
+            vertical_position(pos);
+            if (that.progress < 100) {
+                requestAnimationFrame(that);
+            }
+        }
+        that.target = target;
+        that.progress = 0;
+        return that;
+    }
+
+    var scroller;
+    var scroll = function(target){
+        if (scroller && scroller.progress < 100) {
+            scroller.target = target;
+        } else {
+            scroller = make_scroller(target);
+            requestAnimationFrame(scroller);
+        }
+    };
+
+    var move_to_slide = function(slide_num, immediately) {
         if(slide_num < 0 || slide_num >= slides.length) {
             return false;
         }
-        scroll(slides[slide_num].offsetTop);
+        (immediately? vertical_position : scroll)(slides[slide_num].offsetTop);
         active_slide = slide_num;
         return true;
     };
@@ -127,7 +166,7 @@
     window.onload = function() {
         var nums = slide_nums.exec(location.hash);
         if(nums) {
-            move_to_slide((+nums[1])-1);
+            move_to_slide((+nums[1])-1, true);
             move_to_subslide((+nums[2])-1);
         } else {
             update_location();
