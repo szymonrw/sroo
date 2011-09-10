@@ -36,6 +36,17 @@ body > section > * {
     padding: 0 5%;
 }
 
+/* these two classes are used to hide and show subslides
+programatically */
+
+.shown {
+    display: table-cell;
+}
+
+.hidden {
+    display: none;
+}
+
 /* this is before body > section > h1 because :first-child matches the h1 */
 body > section > h1 + *, body > section > :first-child {
     display: table-cell;

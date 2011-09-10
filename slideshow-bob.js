@@ -97,6 +97,11 @@
         return true;
     };
 
+    Object.prototype.delete_class = function(class_name) {
+        this.className = this.className.replace(class_name, "");
+        return this;
+    }
+
     var move_to_subslide = function(subslide_num) {
         var slide = slides[active_slide];
         var subs = slide.children;
@@ -110,8 +115,8 @@
             return false;
         }
 
-        subs[slide.active_subslide + header_offset].style.display = "none";
-        subs[subslide_num + header_offset].style.display = "table-cell";
+        subs[slide.active_subslide + header_offset].delete_class("shown").className += "hidden";
+        subs[subslide_num + header_offset].delete_class("hidden").className += "shown";
 
         slide.active_subslide = subslide_num;
         return true;
@@ -175,7 +180,7 @@
 
     // Reposition window after zooming
     window.onresize = function() {
-        move_to_slide(active_slide);
+        move_to_slide(active_slide, true);
     };
 
     // Preventing from handling scrolling when Ctrl is pressed --
