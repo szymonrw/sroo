@@ -115,8 +115,12 @@
             return false;
         }
 
-        subs[slide.active_subslide + header_offset].delete_class("shown").className += "hidden";
-        subs[subslide_num + header_offset].delete_class("hidden").className += "shown";
+        subs[slide.active_subslide + header_offset].
+            delete_class(" shown").
+            className += " hidden";
+        subs[subslide_num + header_offset].
+            delete_class(" hidden").
+            className += " shown";
 
         slide.active_subslide = subslide_num;
         return true;
