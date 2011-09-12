@@ -5,7 +5,7 @@ title: Flat-structured slideshow
 
 # This slideshow doesn't have `<section>`s
 
-Indeed, they are magically added by Slideshow Bob.
+Indeed, they are magically added by Sroo.
 
 Just like in normal version, every node inside slide becomes a
 subslide.
@@ -33,12 +33,12 @@ etc. (Jekyll too! :) )
   you wish, you may use spaces between the hyphens or
   asterisks. *[markdown docs]*
 
-# Slideshow Bob and Jekyll
+# Sroo and Jekyll
 
 There's a simple layout for slideshows
-[here](https://github.com/santamon/slideshow-bob/blob/gh-pages/_layouts/slideshow.html)
+[here](https://github.com/santamon/sroo/blob/gh-pages/_layouts/slideshow.html)
 and you can see this slideshow code
-[here](https://raw.github.com/santamon/slideshow-bob/gh-pages/flat.md).
+[here](https://raw.github.com/santamon/sroo/gh-pages/flat.md).
 
 # But:
 

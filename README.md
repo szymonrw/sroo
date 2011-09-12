@@ -1,7 +1,14 @@
-# Slideshow Bob
+# Sroo
 
-Slideshow Bob makes simple slideshows with simplest markup
-possible.
+Sroo makes simple slideshows with simplest markup possible. Browse
+here for a demo: <http://longstandingbug.com/sroo>
+
+Other feautures:
+
+- Works on modern browsers (tested on IE9, Chrome 13, Firefox 5, Opera 11)
+- Intuitive navigation using mouse and keyboard
+- Provides #anchors to all slides.
+- Doesn't impose any look on your presentation.
 
 # The Simple Markup
 
@@ -50,14 +57,13 @@ Other stuff
 ---
 
 Some stuff on titleless slide
-
 ...
 ```
 
 # Installation
 
-Download slideshow-bob.css and slideshow-bob.js, put them somewhere
-and add bolded parts to your html file:
+Download sroo.css and sroo.js, put them somewhere
+and then add the bolded parts to your html file:
 
 <pre><code>
 &lt;!DOCTYPE html&gt;
@@ -65,7 +71,7 @@ and add bolded parts to your html file:
   &lt;head&gt;
     &lt;meta charset="utf-8" /&gt;
     &lt;title&gt;Presentation&lt;/title&gt;
-    <b>&lt;link rel="stylesheet" type="text/css" href="slideshow-bob.css" /&gt;</b>
+    <b>&lt;link rel="stylesheet" type="text/css" href="sroo.css" /&gt;</b>
   &lt;/head&gt;
   &lt;body&gt;
     &lt;section&gt;
@@ -73,7 +79,7 @@ and add bolded parts to your html file:
       ...
     &lt;/section&gt;
     ...
-    <b>&lt;script src="slideshow-bob.js"&gt;&lt;/script&gt;</b>
+    <b>&lt;script src="sroo.js"&gt;&lt;/script&gt;</b>
   &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
@@ -81,7 +87,7 @@ and add bolded parts to your html file:
 # Jekyll
 
 It's extra easy to use it with Jekyll: There's a layout ready for you
-in _layouts directory. This doesn't require any plugins for Jekyll.
+in _layouts directory. This doesn't require any plugins.
 
 ```html
 <!DOCTYPE html>
@@ -89,11 +95,11 @@ in _layouts directory. This doesn't require any plugins for Jekyll.
   <head>
     <meta charset="utf-8" />
     <title>{{ page.title }}</title>
-    <link rel="stylesheet" type="text/css" href="slideshow-bob.css" />
+    <link rel="stylesheet" type="text/css" href="sroo.css" />
   </head>
   <body>
     {{ content }}
-    <script src="slideshow-bob.js"></script>
+    <script src="sroo.js"></script>
   </body>
 </html>
 ```
