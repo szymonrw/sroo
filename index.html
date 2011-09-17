@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Sroo Presentation</title>
+    <link rel="stylesheet" type="text/css" href="sroo.css" />
+  </head>
+  <body>
+    <section>
+      <h1>Sroo</h1>
+
+      <section>
+        <p>
+          Sroo makes simple slideshows with simplest markup
+          possible. Project is hosted here:
+          <a href="http://github.com/santamon/sroo">http://github.com/santamon/sroo</a>.
+        </p>
+
+        <ul>
+          <lh>Other feautures:</lh>
+
+          <li>Works on modern browsers (tested on IE9, Chrome 13,
+            Firefox 5, Opera 11)</li>
+          <li>Intuitive navigation using mouse and keyboard</li>
+          <li>Provides #anchors to all slides.</li>
+          <li>Uses semantic tags instead of CSS classes.</li>
+          <li>Doesn't impose any look on your presentation.</li>
+        </ul>
+      </section>
+    </section>
+
+    <section>
+      <h1>The Simple Markup</h1>
+
+      <section>
+        <p>
+          Each slide is a <code>&lt;section&gt;</code>
+          inside <code>&lt;body&gt;</code>. Each section has a
+          optional <code>&lt;h1&lt</code> header and each other node
+          inside slide becomes a subslide. In the outcome, subslides
+          shares same header.
+        </p>
+
+<pre><code>&lt;body&gt;
+  &lt;section&gt;
+    &lt;h1&gt;Slide No 1&lt;/h1&gt;
+    &lt;p&gt;Subslide No 1.1&lt;/p&gt;
+    &lt;p&gt;Subslide No 1.2&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;section&gt;
+    ...
+</code></pre>
+      </section>
+    </section>
+
+    <section>
+      <h1>Even Simpler Markup</h1>
+
+      <section>
+        <p>
+          You can don't have to write
+          manually <code>&lt;section&gt;</code>'s. As long as each
+          slide begins with <code>&lt;h1&gt;</code> or <code>&lt;hr
+          /&gt;</code> (in case of slide without a title) you're done.
+        </p>
+
+<pre><code>&lt;body&gt;
+  &lt;h1&gt;Slide No1&lt;/h1&gt;
+  ...subslides...
+  &lt;hr /&gt;
+  &lt;p&gt;This slide doesn't have a title&lt;/p&gt;
+  ...
+</code></pre>
+      </section>
+    </section>
+
+    <section>
+      <h1>Even Simpler Simpler Markdown</h1>
+
+      <section>
+        <p>
+          In case you are generating your content from Markdown, It's
+          becomes even better:
+        </p>
+
+<pre><code># Slide No1
+
+Some stuff
+
+Other stuff
+
+---
+
+Some stuff on titleless slide
+...
+</code></pre>
+      </section>
+    </section>
+
+    <section>
+      <h1>Installation</h1>
+
+      <p>
+        Download sroo.css and sroo.js, put them somewhere and then
+        add the bolded parts to your html file:
+      </p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;title&gt;Presentation&lt;/title&gt;
+    <b>&lt;link rel="stylesheet" type="text/css" href="sroo.css" /&gt;</b>
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;section&gt;
+      &lt;h1&gt;Slide 1&lt;/h1&gt;
+      ...
+    &lt;/section&gt;
+    ...
+    <b>&lt;script src="sroo.js"&gt;&lt;/script&gt;</b>
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </section>
+
+    <section>
+      <h1>Jekyll</h1>
+
+      <section>
+        <p>
+          It's extra easy to use it with Jekyll: There's a layout
+          ready for you in _layouts directory. This doesn't require
+          any plugins.
+        </p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;title&gt;&#123;&#123; page.title &#125;&#125;&lt;/title&gt;
+    &lt;link rel="stylesheet" type="text/css" href="sroo.css" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &#123;&#123; content &#125;&#125;
+    &lt;script src="sroo.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+      </section>
+    </section>
+
+    <section>
+      <h1>Footer</h1>
+
+      <section>
+        <p>
+          Inspired <i>heavily</i> by
+          <a href="http://contrastrebellion.com/">Contrast
+          Rebellion</a>.
+        </p>
+        <p>Copywrong 2011 Szymon Witamborski, MIT License</p>
+      </section>
+    </section>
+    <script src="sroo.js"></script>
+  </body>
+</html>
