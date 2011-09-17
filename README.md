@@ -8,6 +8,7 @@ Other feautures:
 - Works on modern browsers (tested on IE9, Chrome 13, Firefox 5, Opera 11)
 - Intuitive navigation using mouse and keyboard
 - Provides #anchors to all slides.
+- Uses semantic tags instead of CSS classes.
 - Doesn't impose any look on your presentation.
 
 # The Simple Markup
