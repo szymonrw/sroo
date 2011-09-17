@@ -1,11 +1,16 @@
+---
+layout: slideshow
+title: Sroo
+---
+
 # Sroo
 
-Sroo makes simple slideshows with simplest markup possible. Browse
-here for a demo: <http://longstandingbug.com/sroo>.
+Sroo makes simple slideshows with simplest markup possible. Project is
+hosted here: <http://github.com/santamon/sroo>.
 
-Other feautures:
-
-- Works on modern browsers (tested on IE9, Chrome 13, Firefox 5, Opera 11)
+> Other feautures:
+>
+> - Works on modern browsers (tested on IE9, Chrome 13, Firefox 5, Opera 11)
 - Intuitive navigation using mouse and keyboard
 - Provides #anchors to all slides.
 - Uses semantic tags instead of CSS classes.
@@ -17,38 +22,38 @@ Each slide is a `<section>` inside `<body>`. Each section has a
 optional `<h1>` header and each other node inside slide becomes a
 subslide. In the outcome, subslides shares same header.
 
-```html
-<body>
-  <section>
-    <h1>Slide No 1</h1>
-    <p>Subslide No 1.1</p>
-    <p>Subslide No 1.2</p>
-  </section>
-  <section>
+<pre><code>
+&lt;body&gt;
+  &lt;section&gt;
+    &lt;h1&gt;Slide No 1&lt;/h1&gt;
+    &lt;p&gt;Subslide No 1.1&lt;/p&gt;
+    &lt;p&gt;Subslide No 1.2&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;section&gt;
     ...
-```
+</code></pre>
 
 # Even Simpler Markup
 
-Hooray for the lazy, because they are in favor. You can don't have to
-write manually `<section>`'s. As long as each slide begins with `<h1>`
-or `<hr />` (in case of slide without a title) you're done.
+You can don't have to write manually `<section>`'s. As long as each
+slide begins with `<h1>` or `<hr />` (in case of slide without a
+title) you're done.
 
-```html
-<body>
-  <h1>Slide No1</h1>
+<pre><code>
+&lt;body&gt;
+  &lt;h1&gt;Slide No1&lt;/h1&gt;
   ...subslides...
-  <hr />
-  <p>This slide doesn't have a title</p>
+  &lt;hr /&gt;
+  &lt;p&gt;This slide doesn't have a title&lt;/p&gt;
   ...
-```
+</code></pre>
 
 # Even Simpler Simpler Markdown
 
 In case you are generating your content from Markdown, It's becomes
 even better:
 
-```markdown
+<pre><code>
 # Slide No1
 
 Some stuff
@@ -59,7 +64,7 @@ Other stuff
 
 Some stuff on titleless slide
 ...
-```
+</code></pre>
 
 # Installation
 
@@ -90,25 +95,25 @@ and then add the bolded parts to your html file:
 It's extra easy to use it with Jekyll: There's a layout ready for you
 in _layouts directory. This doesn't require any plugins.
 
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>{{ page.title }}</title>
-    <link rel="stylesheet" type="text/css" href="sroo.css" />
-  </head>
-  <body>
-    {{ content }}
-    <script src="sroo.js"></script>
-  </body>
-</html>
-```
+<pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;title&gt;&#123;&#123; page.title &#125;&#125;&lt;/title&gt;
+    &lt;link rel="stylesheet" type="text/css" href="sroo.css" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &#123;&#123; content &#125;&#125;
+    &lt;script src="sroo.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 
 # Footer
 
-Inspired _heavily_ by <http://contrastrebellion.com/>.
-
-Copywrong 2011 Szymon Witamborski
-
-MIT License
+> Inspired _heavily_ by <http://contrastrebellion.com/>.
+>
+> Copywrong 2011 Szymon Witamborski
+>
+> MIT License
