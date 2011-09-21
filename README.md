@@ -3,7 +3,7 @@
 Sroo makes simple slideshows with simplest markup possible. Browse
 here for a demo: <http://longstandingbug.com/sroo>.
 
-Feautures:
+Features:
 
 - Intuitive navigation using mouse and keyboard
 - Prospectus view when displaying on small devices and in portrait orientation
