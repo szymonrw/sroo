@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Sroo Presentation</title>
-    <link rel="stylesheet" type="text/css" href="sroo.min.css" />
+    <link rel="stylesheet" type="text/css" href="sroo.css" />
   </head>
   <body>
     <section>
@@ -15,18 +15,20 @@
         <a href="http://github.com/santamon/sroo">http://github.com/santamon/sroo</a>.
       </p>
 
-
-      <ul>
-        <lh>Feautures:</lh>
-
-        <li>Works on modern browsers (tested on IE9, Chrome 13,
-          Firefox 5, Opera 11)</li>
-        <li>Intuitive navigation using mouse and keyboard</li>
-        <li>Prospectus view when displaying on small devices and in portrait orientation</li>
-        <li>Provides #anchors to all slides.</li>
-        <li>Uses semantic tags instead of CSS classes.</li>
-        <li>Doesn't impose any look on your presentation.</li>
-      </ul>
+      <section>
+        <p>Feautures:</p>
+        <ul>
+          <li>Intuitive navigation using mouse and keyboard</li>
+          <li>Prospectus view when displaying on small devices and in portrait orientation</li>
+          <li>Provides anchors to all slides so you have a permament
+            links to every slide and subslide</li>
+          <li>Auto scaling</li>
+          <li>Uses semantic tags instead of CSS classes</li>
+          <li>Doesn't impose any look on your presentation</li>
+          <li>Works on modern browsers (tested on IE9, Chrome 13,
+            Firefox 5, Opera 11)</li>
+        </ul>
+      </section>
     </section>
 
     <section>
@@ -101,7 +103,7 @@ Some stuff on titleless slide
       <h1>Installation</h1>
 
       <p>
-        Download sroo.css and sroo.js, put them somewhere and then
+        Download sroo.css and sroo-min.js, put them somewhere and then
         add the bolded parts to your html file:
       </p>
 
@@ -110,7 +112,8 @@ Some stuff on titleless slide
   &lt;head&gt;
     &lt;meta charset="utf-8" /&gt;
     &lt;title&gt;Presentation&lt;/title&gt;
-    <b>&lt;link rel="stylesheet" type="text/css" href="sroo.css" /&gt;</b>
+    <b>&lt;link rel="stylesheet" type="text/css"
+          href="sroo.css" /&gt;</b>
   &lt;/head&gt;
   &lt;body&gt;
     &lt;section&gt;
@@ -118,7 +121,7 @@ Some stuff on titleless slide
       ...
     &lt;/section&gt;
     ...
-    <b>&lt;script src="sroo.js"&gt;&lt;/script&gt;</b>
+    <b>&lt;script src="sroo-min.js"&gt;&lt;/script&gt;</b>
   &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
@@ -140,11 +143,12 @@ Some stuff on titleless slide
   &lt;head&gt;
     &lt;meta charset="utf-8" /&gt;
     &lt;title&gt;&#123;&#123; page.title &#125;&#125;&lt;/title&gt;
-    &lt;link rel="stylesheet" type="text/css" href="sroo.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css"
+          href="sroo.css" /&gt;
   &lt;/head&gt;
   &lt;body&gt;
     &#123;&#123; content &#125;&#125;
-    &lt;script src="sroo.js"&gt;&lt;/script&gt;
+    &lt;script src="sroo-min.js"&gt;&lt;/script&gt;
   &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
@@ -163,6 +167,6 @@ Some stuff on titleless slide
         <p>Copywrong 2011 Szymon Witamborski, MIT License</p>
       </section>
     </section>
-    <script src="sroo.js"></script>
+    <script src="sroo-min.js"></script>
   </body>
 </html>

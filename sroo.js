@@ -13,6 +13,9 @@
     var active_slide = 0;
     var slide, i, ii, node_name, node, scroller;
 
+    // Mark body that javascript is enabled. Turns on CSS part.
+    body.className += " js-enabled";
+
     // reorganize body to sections if not structured properly
     if (body.firstElementChild.nodeName !== "SECTION") {
         slide = document.createElement("section");
@@ -181,7 +184,13 @@
         }
     };
 
+    var autoscale = function () {
+        var size = Math.min(innerWidth, innerHeight) / 400;
+        body.style.fontSize = size + "em";
+    }
+
     window.onload = function () {
+        autoscale();
         var nums = slide_nums.exec(location.hash);
         if (nums) {
             move_to_slide((+nums[1])-1, true);
@@ -193,6 +202,7 @@
 
     // Reposition window after zooming
     window.onresize = function () {
+        autoscale();
         move_to_slide(active_slide, true);
     };
 

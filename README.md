@@ -3,13 +3,15 @@
 Sroo makes simple slideshows with simplest markup possible. Browse
 here for a demo: <http://longstandingbug.com/sroo>.
 
-Other feautures:
+Feautures:
 
-- Works on modern browsers (tested on IE9, Chrome 13, Firefox 5, Opera 11)
 - Intuitive navigation using mouse and keyboard
-- Provides #anchors to all slides.
-- Uses semantic tags instead of CSS classes.
-- Doesn't impose any look on your presentation.
+- Prospectus view when displaying on small devices and in portrait orientation
+- Provides anchors to all slides so you have a permament links to every slide and subslide
+- Auto scaling
+- Uses semantic tags instead of CSS classes
+- Doesn't impose any look on your presentation
+- Works on modern browsers (tested on IE9, Chrome 13, Firefox 5, Opera 11)
 
 # The Simple Markup
 
@@ -63,7 +65,7 @@ Some stuff on titleless slide
 
 # Installation
 
-Download sroo.css and sroo.js, put them somewhere
+Download sroo.css and sroo-min.js, put them somewhere
 and then add the bolded parts to your html file:
 
 <pre><code>
@@ -80,7 +82,7 @@ and then add the bolded parts to your html file:
       ...
     &lt;/section&gt;
     ...
-    <b>&lt;script src="sroo.js"&gt;&lt;/script&gt;</b>
+    <b>&lt;script src="sroo-min.js"&gt;&lt;/script&gt;</b>
   &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
@@ -100,7 +102,7 @@ in _layouts directory. This doesn't require any plugins.
   </head>
   <body>
     {{ content }}
-    <script src="sroo.js"></script>
+    <script src="sroo-min.js"></script>
   </body>
 </html>
 ```
