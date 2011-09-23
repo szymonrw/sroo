@@ -32,7 +32,7 @@ subslide. In the outcome, subslides shares same header.
 
 # Even Simpler Markup
 
-Hooray for the lazy, because they are in favor. You can don't have to
+Hooray for the lazy, because they are in favor. You don't have to
 write manually `<section>`'s. As long as each slide begins with `<h1>`
 or `<hr />` (in case of slide without a title) you're done.
 
