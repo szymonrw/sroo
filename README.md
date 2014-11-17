@@ -1,7 +1,7 @@
 # Sroo
 
 Sroo makes simple slideshows with simplest markup possible. Browse
-here for a demo: <http://longstandingbug.com/sroo>.
+here for a demo: <http://brainshave.github.io/sroo>.
 
 Features:
 
